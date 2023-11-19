@@ -1,0 +1,31 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    {% block some_link %}{% endblock %}
+    {% include 'shared/header_refrences.html' %}
+    </head>
+
+    <body>
+        <div id="container">
+        <div id="header"></div>
+          <div id="wrapper">
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+          </div>
+          <div id="navigation">
+
+          </div>
+          <div id="footer">
+                {% block footer %}{% endblock %}
+          </div>
+        </div>
+        {% include 'shared/footer_references.html' %}
+    </body>
+</html>
