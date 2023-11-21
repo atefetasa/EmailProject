@@ -1,5 +1,5 @@
 from django.db import models
-from account_module.models import User, Contact
+from account_module.models import User, Contact, Signature
 from .validators import validate_file_size
 
 
@@ -35,9 +35,10 @@ class Email(models.Model):
     direct_receivers = models.ManyToManyField(User, blank=True, related_name='direct_receivers')
     cc_receivers = models.ManyToManyField(User, blank=True, related_name='cc_receivers')
     bcc_receivers = models.ManyToManyField(User, blank=True, related_name='bcc_receivers')
-    reply = models.ForeignKey('self', null=True, blank=True, on_delete=models.PROTECT)
+    replied_email = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL)
     categories = models.ManyToManyField(Category, blank=True, related_name='email_categories')
     labels = models.ManyToManyField(Label, blank=True, related_name='email_labels', verbose_name='email_labels')
+    signature = models.ForeignKey(Signature, on_delete=models.SET_NULL, null=True, blank=True)
 
     @property
     def file_size(self):

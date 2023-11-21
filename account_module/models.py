@@ -19,7 +19,6 @@ class User(AbstractUser, PermissionsMixin):
     phone_number = models.CharField(max_length=11, null=True, blank=True, unique=True, db_index=True,
                                     verbose_name='phone number')
     profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True, verbose_name='profile photo')
-    signature = models.CharField(max_length=300, null=True, blank=True)
 
     REQUIRED_FIELDS = ['email', 'phone_number']
     objects = CustomUserManager()
@@ -30,6 +29,27 @@ class User(AbstractUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+
+class Signature(models.Model):
+    signature = models.CharField(max_length=300)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bold = models.BooleanField(default=False)
+    italic = models.BooleanField(default=False)
+    color_choices = [
+        ('g', 'green'),
+        ('b', 'blue'),
+        ('r', 'red'),
+        ('p', 'purple')
+    ]
+    color = models.CharField(max_length=1, choices=color_choices, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'signature'
+        verbose_name_plural = 'signatures'
+
+    def __str__(self):
+        return self.signature
 
 
 class Contact(models.Model):
