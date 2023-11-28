@@ -1,10 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}Compose Mail Page{% endblock %}
+
+{% block extra_header_refrences %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/util2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hamburgers.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="contact1">
+		<div class="container-contact1">
+
+			<form class="contact1-form validate-form" method="post">
+
+				<div class="wrap-input1">
+					<input class="input1" type="text" name="title" placeholder="mail title">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1">
+                    <input type="text" class="input1" name="to" id="to" placeholder="to">
+					<span class="shadow-input1">
+                        <select id="myDropdown1" class="js-example-basic-single" style="width: 300px;">
+                          <option value="option1">Option 1</option>
+                          <option value="option2">Option 2</option>
+                          <option value="option3">Option 3</option>
+                        </select>
+                    </span>
+				</div>
+
+                <div class="wrap-input1">
+                    <input type="text" class="input1" name="cc" id="cc" placeholder="cc">
+					<span class="shadow-input1">
+                        <select id="myDropdown2" class="js-example-basic-single" style="width: 300px;">
+                          <option value="option1">Option 1</option>
+                          <option value="option2">Option 2</option>
+                          <option value="option3">Option 3</option>
+                        </select>
+                    </span>
+				</div>
+
+                <div class="wrap-input1">
+                    <input type="text" class="input1" name="bcc" id="bcc" placeholder="Bcc">
+					<span class="shadow-input1">
+                        <select id="myDropdown3" class="js-example-basic-single" style="width: 300px;">
+                          <option value="option1">Option 1</option>
+                          <option value="option2">Option 2</option>
+                          <option value="option3">Option 3</option>
+                        </select>
+                    </span>
+				</div>
+
+                <div class="wrap-input1">
+					<textarea class="input1" name="text" placeholder="Mail Text"></textarea>
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1">
+                    <label for="file">Select a file:</label>
+					<input class="input1" type="file" name="file" id="file">
+					<span class="shadow-input1"></span>
+				</div>
+
+                <div class="wrap-input1">
+					<input class="input1" type="button" name="signature" id="signature">
+					<span class="shadow-input1"></span>
+				</div>
+
+                <div class="wrap-input1">
+					<input class="input1" type="button" name="label" id="label">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="container-contact1-form-btn">
+					<button class="contact1-form-btn">
+						<span>
+							Send Mail
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_footer_refrences %}
+    <script >
+         $(document).ready(function() {
+            $('#myDropdown').select2();
+         });
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

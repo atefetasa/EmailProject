@@ -21,6 +21,7 @@ class User(AbstractUser, PermissionsMixin):
     profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True, verbose_name='profile photo')
 
     REQUIRED_FIELDS = ['email', 'phone_number']
+
     objects = CustomUserManager()
 
     class Meta:
