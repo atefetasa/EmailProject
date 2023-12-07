@@ -114,7 +114,7 @@ class RegisterModelForm(forms.ModelForm):
 class EnterCodeForm(forms.Form):
     code = forms.CharField(
         widget=forms.TextInput(attrs={
-            'type': 'number',
+            'type': 'text',
             'placeholder': 'Enter the received Code',
             'class': 'input100',
             'name': 'active_code'

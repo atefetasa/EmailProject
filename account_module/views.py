@@ -75,25 +75,28 @@ class EnterCodeView(FormView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        user_information = request.session.get('user_registration_info')
-        otp_object = OtpCode.objects.filter(user__username__iexact=user_information['username']).latest('created_at')
-        entered_code = self.request.POST.get('code')
         form = self.form_class(request.POST)
-        current_time = timezone.now()
-        remained_time = current_time - otp_object.created_at
-        if entered_code != otp_object.code:
-            form.add_error('code', 'The entered cod is incorrect. please try again')
-            return self.form_invalid(form)
+        if form.is_valid():
+            user_information = request.session.get('user_registration_info')
+            otp_object = OtpCode.objects.filter(user__username__iexact=user_information['username']).latest('created_at')
+            entered_code = self.request.POST.get('code')
+            current_time = timezone.now()
+            remained_time = current_time - otp_object.created_at
+            if entered_code != otp_object.code:
+                form.add_error('code', 'The entered cod is incorrect. please try again')
+                return self.form_invalid(form)
 
-        if remained_time.total_seconds() > 240:
-            form.add_error('code', 'the expiration of your code has been passed')
-            return self.form_invalid(form)
+            if remained_time.total_seconds() > 240:
+                form.add_error('code', 'the expiration of your code has been passed')
+                return self.form_invalid(form)
 
-        user = User.objects.get(username__iexact=user_information['username'])
-        user.is_active = True
-        user.save()
-        messages.success(request, "your account has been successfully activated")
-        return super(EnterCodeView, self).form_valid(form)
+            user = User.objects.get(username__iexact=user_information['username'])
+            user.is_active = True
+            user.save()
+            messages.success(request, "your account has been successfully activated")
+            return super(EnterCodeView, self).form_valid(form)
+
+        return super(EnterCodeView, self).form_invalid(form)
 
 
 class ResendCodeView(View):
