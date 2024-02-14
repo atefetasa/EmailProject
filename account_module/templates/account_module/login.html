@@ -1,0 +1,75 @@
+{% extends 'shared/account_layout.html' %}
+{% load static %}
+
+{% block title %}login page{% endblock %}
+
+{% block some_link %}
+    <link rel="icon" type="image/png" href="{% static 'account_module/images/icons/icons8-login-50.png' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="limiter">
+		<div class="container-login100" style="background-image: url({% static 'account_module/images/background_image/bg-01.jpg' %});">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" method="post" action="{% url 'login_page' %}">
+                    {% csrf_token %}
+					<span class="login100-form-title p-b-49">
+						Login
+					</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
+						<span class="label-input100">{{ login_form.username.label_tag|capfirst }}</span>
+						{{ login_form.username }}
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+                    {% for error in login_form.username.errors %}
+                            <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<span class="label-input100">{{ login_form.password.label_tag|capfirst }}</span>
+						{{ login_form.password }}
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+                    {% for error in login_form.password.errors %}
+                            <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+
+					<div class="text-right p-t-8 p-b-31">
+						<a href="{% url 'forget_password_page' %}">
+							Forgot password?
+						</a>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Login
+							</button>
+						</div>
+					</div>
+
+                    {% if activate_button %}
+                        <div class="container-login100-form-btn" style="margin-top: 50px">
+						    <a href="{% url 'enter_email_page' %}">
+                                <button type="button" class="btn btn-success">activate account</button>
+                            </a>
+					    </div>
+                    {% endif %}
+
+					<div class="flex-col-c p-t-155">
+						<a href="{% url 'sign_up_page' %}" class="txt2">
+							dont have account? Sign Up
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+{% endblock %}
+
+

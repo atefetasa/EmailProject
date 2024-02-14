@@ -1,0 +1,61 @@
+{% extends 'shared/account_layout.html' %}
+{% load static %}
+
+{% block title %}enter email page{% endblock %}
+
+{% block some_link %}
+    <link rel="icon" type="image/png" href="{% static 'account_module/images/icons/icons8-email-48.png' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="limiter">
+		<div class="container-login100" style="background-image: url({% static 'account_module/images/background_image/bg-01.jpg' %});">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" method="post"
+                    action="{% if enter_email_page %}{% url 'enter_email_page' %}{% endif %}
+                        {% if forget_password_page %}{% url 'forget_password_page' %}{% endif %}">
+
+                    {% csrf_token %}
+					<span class="login100-form-title p-b-49">
+						Enter your email
+					</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Email is required">
+						{% if enter_email_page %}
+                            {{ email_form.recovery_email }}
+                            {% for error in email_form.recovery_email.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if forget_password_page %}
+                            {{ forget_pass_form.recovery_email }}
+                            {% for error in forget_pass_form.recovery_email.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								{% if enter_email_page %}Send the code{% endif %}
+                                {% if forget_password_page %}send the reset link{% endif %}
+							</button>
+						</div>
+					</div>
+				</form>
+            {% if success_message %}
+                <p style="color: forestgreen; margin-top: 30px">{{ success_message }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+    <div id="dropDownSelect1"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'account_module/js/jquery-3.3.1.min.js' %}"></script>
+{% endblock %}

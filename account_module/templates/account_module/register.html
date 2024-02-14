@@ -1,0 +1,90 @@
+{% extends 'shared/account_layout.html' %}
+{% load static %}
+
+{% block title %}SignUp page{% endblock %}
+
+{% block some_link %}
+    <link rel="icon" type="image/png" href="{% static 'account_module/images/icons/icons8-signup-64.png' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="limiter">
+		<div class="container-login100" style="background-image: url({% static 'account_module/images/background_image/bg-01.jpg' %});">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" method="post" action="{% url 'sign_up_page' %}">
+                    {% csrf_token %}
+					<span class="login100-form-title p-b-49">
+						SignUp
+					</span>
+                    <div class="wrap-input100 m-b-23">
+                        <span class="label-input100">{{ register_form.username.label_tag|capfirst }}</span>
+                        {{ register_form.username }}
+                        <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        {% for error in register_form.username.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 m-b-23">
+                        <span class="label-input100">{{ register_form.password.label_tag|capfirst }}</span>
+                        {{ register_form.password }}
+                        <span class="focus-input100" data-symbol="&#xf190;"></span>
+                        {% for error in register_form.password.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 m-b-23">
+                        <span class="label-input100">{{ register_form.password2.label_tag|capfirst }}</span>
+                        {{ register_form.password2 }}
+                        <span class="focus-input100" data-symbol="&#xf190;"></span>
+                        {% for error in register_form.password2.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 m-b-23">
+                        <span class="label-input100">{{ register_form.email.label_tag|capfirst }}</span>
+                        {{ register_form.email }}
+                        <span class="focus-input100" data-symbol="&#9993;"></span>
+                        {% for error in register_form.email.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 m-b-23">
+                        <span class="label-input100">{{ register_form.phone_number.label_tag|capfirst }}</span>
+                        {{ register_form.phone_number }}
+                        <span class="focus-input100" data-symbol="&#9990;"></span>
+                        {% for error in register_form.phone_number.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                     <p style="color: blueviolet"> you should fill at least one of the phone number or email fields</p>
+                    <br/>
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button type="submit" class="login100-form-btn">
+								Sign Up
+							</button>
+						</div>
+					</div>
+
+                    <div class="flex-col-c p-t-155">
+						<a href="{% url 'login_page' %}" class="txt2">
+							have an account? Sign in
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'sidebar_font';
+    src: url('../fonts/site_main_fonts/Vogue.ttf');
+}
+
+@font-face {
+    font-family: 'header_font';
+    src: url('../fonts/site_main_fonts/LTSuperior-Semibold.otf');
+}
+
+.sidebar_links {
+    color: #3d3d29;
+    font-family: 'sidebar_font';
+}
+
+#site_header {
+    font-family: 'header_font';
+}

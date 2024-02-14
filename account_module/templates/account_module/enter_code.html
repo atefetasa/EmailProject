@@ -1,0 +1,70 @@
+{% extends 'shared/account_layout.html' %}
+{% load static %}
+
+{% block title %}enter code page{% endblock %}
+
+{% block some_link %}
+    <link rel="icon" type="image/png" href="{% static 'account_module/images/icons/icons8-numbers-80.png' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="limiter">
+		<div class="container-login100" style="background-image: url({% static 'account_module/images/background_image/bg-01.jpg' %});">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" method="post" action="{% url 'enter_code_page' %}">
+                    {% csrf_token %}
+					<span class="login100-form-title p-b-49">
+						Enter Code
+					</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Code is reauired">
+						{{ form.code }}
+                        {% for error in form.code.errors %}
+                                <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Submit
+							</button>
+						</div>
+					</div>
+				</form>
+
+            <div class="wrap-input100 validate-input m-b-23" data-validate = "Code is reauired" style="margin-top: 25px">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6" style="margin-top: 10px">
+                                <span id="minutes" style="color:#5900b3"></span>
+                                <span>:</span>
+                                <span id="seconds" style="color:#5900b3"></span>
+                            </div>
+                            <form method="post" action="{% url 'resend_code' %}">
+                                {% csrf_token %}
+                                <div class="col-md-6">
+                                    <div class="text-right p-t-8 p-b-31">
+                                        <button style="color:#5900b3; width: 160px">resend the code</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            {% if message %}
+                <p style="color: {{ color }}">{{ message }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+	<div id="dropDownSelect1"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'account_module/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'account_module/js/reverse_timer.js' %}"></script>
+{% endblock %}

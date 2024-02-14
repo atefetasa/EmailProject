@@ -1,0 +1,86 @@
+{% load static %}
+
+<div class="col-md-2 order-0 d-flex flex-column" style="height: 100%; border-right: 5px solid #db66ff; background-color: {{ sidebar_background_color }}">
+        <div class="P-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <a href="{% url 'compose_mail_page' %}">
+                      <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-write-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-write-50.png' %}{% endif %}">
+                </a>
+            </div>
+            <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
+                <a class="sidebar_links" href="{% url 'compose_mail_page' %}">
+                    <p style="font-size: medium"><b>Compose</b></p>
+                </a>
+            </div>
+        </div>
+        <div class="P-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-contacts-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-contacts-50.png' %}{% endif %}">
+            </div>
+            <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
+                <a class="sidebar_links">
+                    <p style="font-size: medium"><b>Contacts</b></p>
+                </a>
+            </div>
+        </div>
+        <div class="P-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-mailbox-opened-flag-up-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-inbox-50.png' %}{% endif %}">
+            </div>
+            <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
+                <a class="sidebar_links">
+                    <p style="font-size: medium"><b>Inbox</b></p>
+                </a>
+            </div>
+        </div>
+        <div class="P-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-email-send-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-outbox-50.png' %}{% endif %}">
+            </div>
+            <div style="height: 70px;" class="d-flex flex-column justify-content-end">
+                <a class="sidebar_links">
+                    <p style="font-size: medium"><b>Sent mails</b></p>
+                </a>
+            </div>
+        </div>
+        <div class="P-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-draft-64.png' %}{% elif icons_color == "bw"%}{% static 'images/icons/layout_icons/black_and_white/icons8-draft-50.png' %}{% endif %}">
+            </div>
+            <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
+                <a class="sidebar_links">
+                    <p style="font-size: medium"><b>Drafts</b></p>
+                </a>
+            </div>
+        </div>
+        <div class="P-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-trash-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-trash-50.png' %}{% endif %}">
+            </div>
+            <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
+                <a class="sidebar_links">
+                    <p style="font-size: medium"><b>Trash</b></p>
+                </a>
+            </div>
+        </div>
+        <div class="p-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-label-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-label-50.png' %}{% endif %}">
+            </div>
+            <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
+                <a class="sidebar_links">
+                    <p style="font-size: medium"><b>Labels</b></p>
+                </a>
+            </div>
+        </div>
+        <div class="P-2 mb-5 row d-flex flex-row align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-settings-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-settings-50.png' %}{% endif %}">
+            </div>
+            <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
+                <a class="sidebar_links">
+                    <p style="font-size: medium"><b>Settings</b></p>
+                </a>
+            </div>
+        </div>
+</div>
