@@ -78,7 +78,7 @@
                 <img class="img-fluid" style="height: 70px; width: 70px;" src="{% if icons_color == "c" %}{% static 'images/icons/layout_icons/colored/icons8-settings-64.png' %}{% elif icons_color == "bw" %}{% static 'images/icons/layout_icons/black_and_white/icons8-settings-50.png' %}{% endif %}">
             </div>
             <div style="height: 70px;" class="col-md-6 d-flex flex-column justify-content-end">
-                <a class="sidebar_links">
+                <a class="sidebar_links" href="{% url 'site_settings_page' %}">
                     <p style="font-size: medium"><b>Settings</b></p>
                 </a>
             </div>

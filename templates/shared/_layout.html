@@ -9,7 +9,6 @@
     </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
     {% block extra_header_refrences %}{% endblock %}
     {% include 'shared/header_references.html'  %}
 </head>
@@ -18,7 +17,11 @@
         {% render_partial 'home_module.views.site_header_partial' %}
         <div class="row">
             {% render_partial 'home_module.views.site_sidebar_partial' %}
-            {% render_partial 'home_module.views.site_main_partial' %}
+            <div class="col-md-10 order-1 d-flex flex-column justify-content-around" style="height: 100%;">
+                {% block content %}
+
+                {% endblock %}
+            </div>
         </div>
 
     </div>

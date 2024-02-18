@@ -1,0 +1,23 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}Site Settings{% endblock %}
+
+{% block extra_header_refrences %}
+    <link rel="icon" type="image/png" href="{% static 'site_module/images/icons/icons8-settings-50.png' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'site_module/css/site_settings_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'site_settings_page' %}">
+        {% csrf_token %}
+        <div class="site_settings_divs">
+            <h3> customise website appearance by selecting the options bellow</h3>
+        </div>
+        <div class="site_settings_divs"></div>
+        <div class="site_settings_divs"></div>
+        <div class="site_settings_divs"></div>
+        <div class="site_settings_divs"></div>
+    </form>
+{% endblock %}
+

@@ -40,20 +40,5 @@ def site_sidebar_partial(request):
     return render(request, 'shared/site_sidebar_partial.html', context)
 
 
-def site_main_partial(request):
-    if request.user.is_authenticated:
-        settings: SiteSettings = SiteSettings.objects.filter(user__username__iexact=request.user.username).first()
-        context = {
-            'main_background_color': settings.main_background_color,
-            'background_image': settings.background_image
-        }
-    else:
-        context = {
-            'main_background_color': "white",
-            'background_image': None
-        }
-
-    return render(request, 'shared/site_main_partial.html', context)
-
 
 

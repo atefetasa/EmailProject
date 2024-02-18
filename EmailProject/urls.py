@@ -22,8 +22,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account_module.urls')),
-    path('home/', include('home_module.urls')),
-    path('mail/', include('email_module.urls'))
+    path('', include('home_module.urls')),
+    path('mail/', include('email_module.urls')),
+    path('site/', include('site_module.urls')),
 ]
 
 if settings.DEBUG:
