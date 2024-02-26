@@ -1,0 +1,91 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}customize appearance{% endblock %}
+
+{% block extra_header_refrences %}
+    <link rel="stylesheet" type="text/css" href="{% static 'site_module/css/customize_site_appearance.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'site_module/images/icons/icons8-window-color-50.png' %}"/>
+{% endblock %}
+
+{% block content %}
+    <form id="site_settings_form" method="post" action="{% url 'change_appearance_page' %}">
+        {% csrf_token %}
+        <h3 class="mb-5" style="color: #3b004d;"> customise website appearance by selecting the options bellow</h3>
+        {{ site_settings_form.header_background_color.label_tag|capfirst }}
+        <div class="row d-flex flex-row align-items-center justify-content-between mb-5">
+            {% for choice in site_settings_form.header_background_color %}
+{#                <label for="{{ choice.id_for_label }}">#}
+{#                    <img src="{{ choice.choice_label.url }}" alt="{% if choice.id_for_label == "id_header_background_color_0" %}yellow{% elif choice.id_for_label == "id_header_background_color_1" %}light purple{% elif choice.id_for_label == "id_header_background_color_2" %}light ocean blue{% elif choice.id_for_label == "id_header_background_color_3" %}light green{% elif choice.id_for_label == "id_header_background_color_4" %}light red{% elif choice.id_for_label == "id_header_background_color_5" %}light sky blue{% elif choice.id_for_label == "id_header_background_color_6" %}white{% elif choice.id_for_label == "id_header_background_color_7" %}pink purple{% endif %}">#}
+{#                    <span class="radio">{{ choice.tag }}</span>#}
+{#                </label>#}
+                {{ choice }}
+            {% endfor %}
+        </div>
+        {% for error in site_settings_form.header_background_color.errors %}
+            {{ error }}
+        {% endfor %}
+
+        {{ site_settings_form.sidebar_background_color.label_tag|capfirst }}
+        <div class="row d-flex flex-row align-items-center justify-content-between mb-5">
+            {% for choice in site_settings_form.sidebar_background_color %}
+{#                <label for="{{ choice.id_for_label }}">#}
+{#                    <img src="{{ choice.choice_label }}" alt="{% if choice.id_for_label == "id_sidebar_background_color_0" %}yellow{% elif choice.id_for_label == "id_sidebar_background_color_1" %}light purple{% elif choice.id_for_label == "id_sidebar_background_color_2" %}light ocean blue{% elif choice.id_for_label == "id_sidebar_background_color_3" %}light green{% elif choice.id_for_label == "id_sidebar_background_color_4" %}light red{% elif choice.id_for_label == "id_sidebar_background_color_5" %}light sky blue{% elif choice.id_for_label == "id_sidebar_background_color_6" %}white{% elif choice.id_for_label == "id_sidebar_background_color_7" %}pink purple{% endif %}">#}
+{#                    <span class="radio">{{ choice.tag }}</span>#}
+{#                </label>#}
+                {{ choice }}
+            {% endfor %}
+        </div>
+        {% for error in site_settings_form.sidebar_background_color.errors %}
+            {{ error }}
+        {% endfor %}
+
+        {{ site_settings_form.main_background_color.label_tag|capfirst }}
+        <div class="row d-flex flex-row align-items-center justify-content-between mb-5">
+            {% for choice in site_settings_form.main_background_color %}
+{#                <label for="{{ choice.id_for_label }}">#}
+{#                    <img src="{{ choice.choice_label }}" alt="{% if choice.id_for_label == "id_main_background_color_0" %}yellow{% elif choice.id_for_label == "id_main_background_color_1" %}light purple{% elif choice.id_for_label == "id_main_background_color_2" %}light ocean blue{% elif choice.id_for_label == "id_main_background_color_3" %}light green{% elif choice.id_for_label == "id_main_background_color_4" %}light red{% elif choice.id_for_label == "id_main_background_color_5" %}light sky blue{% elif choice.id_for_label == "id_main_background_color_6" %}white{% elif choice.id_for_label == "id_main_background_color_7" %}pink purple{% endif %}">#}
+{#                    <span class="radio">{{ choice.tag }}</span>#}
+{#                </label>#}
+                {{ choice }}
+            {% endfor %}
+        </div>
+        {% for error in site_settings_form.main_background_color.errors %}
+            {{ error }}
+        {% endfor %}
+
+        {{ site_settings_form.icons_color.label_tag|capfirst }}
+        <div class="row mb-5">
+            <div class="col-md-9">
+                {% for choice in site_settings_form.icons_color %}
+                    <div class="col-md-3">
+                        {{ choice }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% for error in site_settings_form.icons_color.errors %}
+            {{ error }}
+        {% endfor %}
+
+        {{ site_settings_form.background_image.label_tag|capfirst }}
+        <div class="row mb-5">
+            {% for choice in site_settings_form.background_image %}
+                <div class="col-md-4">
+{#                    {% if choice.id_for_label == 'id_background_image_0' %}#}
+{#                        {{ choice }}#}
+{#                        {% else %}#}
+{#                        <label for="{{ choice.id_for_label }}">#}
+{#                            <img src="{{ choice.choice_label }}" alt="{% if choice.id_for_label == "id_background_image_1" %}background 1{% elif choice.id_for_label == "id_background_image_2" %}background 2{% elif choice.id_for_label == "id_background_image_3" %}background 3{% elif choice.id_for_label == "id_background_image_4" %}background 4{% elif choice.id_for_label == "id_background_image_5" %}background 5{% elif choice.id_for_label == "id_background_image_6" %}background 6{% elif choice.id_for_label == "id_background_image_7" %}background 7{% endif %}">#}
+{#                            <span class="radio">{{ choice.tag }}</span>#}
+{#                        </label>#}
+{#                    {% endif %}#}
+                    {{ choice }}
+                </div>
+            {% endfor %}
+        </div>
+        {% for error in site_settings_form.background_image.errors %}
+            {{ error }}
+        {% endfor %}
+    </form>
+{% endblock %}

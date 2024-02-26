@@ -3,17 +3,15 @@ from .models import User, OtpCode, PasswordHistory
 from django.utils import timezone
 from django.http import Http404
 from django.contrib import messages
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.contrib.auth import login, logout
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_str, force_bytes
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.http import HttpRequest
 from django.views import View
 from django.views.generic.edit import FormView
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from .utils import *
 
 
@@ -32,7 +30,6 @@ class RegisterView(View):
             phone_number = register_form.cleaned_data.get('phone_number')
             user = User.objects.create_user(username=username, password=password,
                                             email=recovery_email, phone_number=phone_number)
-            user.save()
             password_history = PasswordHistory.objects.create(user=user, password=password)
             password_history.save()
             otp_code = OtpCode.objects.create(user=user)

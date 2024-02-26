@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'site_settings_font';
+    src: url('/static/fonts/site_main_fonts/LTSoul-Regular.otf');
+}
+
+#site_settings_form {
+    font-family: site_settings_font;
+    font-size: medium;
+}

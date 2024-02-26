@@ -11,10 +11,16 @@ def home_view(request):
 def site_header_partial(request):
     if request.user.is_authenticated:
         settings: SiteSettings = SiteSettings.objects.filter(user__username__iexact=request.user.username).first()
-        context = {
-            'header_background_color': settings.header_background_color,
-            'icons_color': settings.icons_color
-        }
+        if settings.header_background_color:
+            context = {
+                'header_background_color': settings.header_background_color.color_name,
+                'icons_color': settings.icons_color
+            }
+        else:
+            context = {
+                'header_background_color': "#f3ccff",
+                'icons_color': settings.icons_color
+            }
     else:
         context = {
             'header_background_color': "#f3ccff",
@@ -27,10 +33,16 @@ def site_header_partial(request):
 def site_sidebar_partial(request):
     if request.user.is_authenticated:
         settings: SiteSettings = SiteSettings.objects.filter(user__username__iexact=request.user.username).first()
-        context = {
-            'sidebar_background_color': settings.sidebar_background_color,
-            'icons_color': settings.icons_color
-        }
+        if settings.sidebar_background_color:
+            context = {
+                'sidebar_background_color': settings.sidebar_background_color.color_name,
+                'icons_color': settings.icons_color
+            }
+        else:
+            context = {
+                'sidebar_background_color': "white",
+                'icons_color': "c"
+            }
     else:
         context = {
             'sidebar_background_color': "white",

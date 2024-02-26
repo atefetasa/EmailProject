@@ -73,6 +73,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': [
+                'site_module.templatetags.tags',
+            ],
         },
     },
 ]
@@ -139,8 +142,7 @@ STATICFILES_DIRS = [
 
 # the files which attached to the emails would be stored in 'uploads' folder
 MEDIA_ROOT = BASE_DIR / 'uploads'
-MEDIA_URL = '/medias/'
-
+MEDIA_URL = ''
 
 
 # Default primary key field type

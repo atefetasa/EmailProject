@@ -24,7 +24,7 @@ urlpatterns = [
     path('account/', include('account_module.urls')),
     path('', include('home_module.urls')),
     path('mail/', include('email_module.urls')),
-    path('site/', include('site_module.urls')),
+    path('site-settings/', include('site_module.urls')),
 ]
 
 if settings.DEBUG:

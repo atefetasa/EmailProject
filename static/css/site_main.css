@@ -4,9 +4,10 @@
 }
 
 @font-face {
-    font-family: 'header_font';
-    src: url('../fonts/site_main_fonts/LTSuperior-Semibold.otf');
+    font-family: 'header_and_main_font';
+    src: url('../fonts/site_main_fonts/LTSoul-Medium.otf');
 }
+
 
 .sidebar_links {
     color: #3d3d29;
@@ -14,5 +15,12 @@
 }
 
 #site_header {
-    font-family: 'header_font';
+    font-family: 'header_and_main_font';
+}
+
+#main_background {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
