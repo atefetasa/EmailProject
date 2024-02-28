@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
 
 # the files which attached to the emails would be stored in 'uploads' folder
 MEDIA_ROOT = BASE_DIR / 'uploads'
-MEDIA_URL = ''
+MEDIA_URL = '/medias/'
 
 
 # Default primary key field type

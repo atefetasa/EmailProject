@@ -15,10 +15,6 @@
         {{ site_settings_form.header_background_color.label_tag|capfirst }}
         <div class="row d-flex flex-row align-items-center justify-content-between mb-5">
             {% for choice in site_settings_form.header_background_color %}
-{#                <label for="{{ choice.id_for_label }}">#}
-{#                    <img src="{{ choice.choice_label.url }}" alt="{% if choice.id_for_label == "id_header_background_color_0" %}yellow{% elif choice.id_for_label == "id_header_background_color_1" %}light purple{% elif choice.id_for_label == "id_header_background_color_2" %}light ocean blue{% elif choice.id_for_label == "id_header_background_color_3" %}light green{% elif choice.id_for_label == "id_header_background_color_4" %}light red{% elif choice.id_for_label == "id_header_background_color_5" %}light sky blue{% elif choice.id_for_label == "id_header_background_color_6" %}white{% elif choice.id_for_label == "id_header_background_color_7" %}pink purple{% endif %}">#}
-{#                    <span class="radio">{{ choice.tag }}</span>#}
-{#                </label>#}
                 {{ choice }}
             {% endfor %}
         </div>

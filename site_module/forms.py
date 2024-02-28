@@ -7,9 +7,9 @@ from django.utils.safestring import mark_safe
 class CustomChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         if hasattr(obj, 'color_image'):
-            return mark_safe("<img src='%s' alt='%s'>" % (obj.color_image.url, obj.color_name))
+            return mark_safe("<img src='%s' alt='%s'/>" % (obj.color_image.url, obj.color_name))
         elif hasattr(obj, 'image'):
-            return mark_safe("<img src='%s' alt='%s'>" % (obj.image.url, obj.image_name))
+            return mark_safe("<img src='%s' alt='%s'/>" % (obj.image.url, obj.image_name))
 
 
 class SiteSettingsForm(forms.Form):
