@@ -8,8 +8,11 @@ class CustomChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         if hasattr(obj, 'color_image'):
             return mark_safe("<img src='%s' alt='%s'/>" % (obj.color_image.url, obj.color_name))
-        elif hasattr(obj, 'image'):
-            return mark_safe("<img src='%s' alt='%s'/>" % (obj.image.url, obj.image_name))
+        elif hasattr(obj, 'image') and obj.image:
+            return mark_safe("<img style='height: 70px; width: 100px; border: 1px solid black;' src='%s' alt='%s'/>"
+                             % (obj.image.url, obj.image_name))
+
+        return super(CustomChoiceField, self).label_from_instance(obj)
 
 
 class SiteSettingsForm(forms.Form):
@@ -29,6 +32,6 @@ class SiteSettingsForm(forms.Form):
                                     widget=forms.RadioSelect)
     background_image = CustomChoiceField(queryset=BackgroundImage.objects.all(),
                                          widget=forms.RadioSelect,
-                                         empty_label="No background image",
-                                         blank=True,
+                                         empty_label=None,
+                                         blank=False,
                                          )

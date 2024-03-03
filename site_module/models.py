@@ -12,9 +12,8 @@ class BackgroundColor(models.Model):
 
 
 class BackgroundImage(models.Model):
-    image_name = models.CharField(max_length=12, null=False, blank=False, unique=True)
-    image = models.ImageField(upload_to='background_images', verbose_name='background image', null=False,
-                              blank=False, unique=True, db_index=True)
+    image_name = models.CharField(max_length=30, null=False, blank=False, unique=True)
+    image = models.ImageField(upload_to='background_images', verbose_name='background image', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Predefined Background Image'

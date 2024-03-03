@@ -15,7 +15,24 @@ class SiteAppearanceView(LoginRequiredMixin, View):
         return render(request, 'site_module/customize_site_appearance.html', context)
 
     def post(self, request):
-        pass
+        change_appearance_form = SiteSettingsForm(request.POST)
+        if change_appearance_form.is_valid():
+            header_background_color = change_appearance_form.cleaned_data.get('header_background_color')
+            sidebar_background_color = change_appearance_form.cleaned_data.get('sidebar_background_color')
+            main_background_color = change_appearance_form.cleaned_data.get('main_background_color')
+            icons_color = change_appearance_form.cleaned_data.get('icons_color')
+            background_image = change_appearance_form.cleaned_data.get('background_image')
+            user_site_settings = SiteSettings.objects.filter(user__username__iexact=request.user.username).first()
+            if user_site_settings:
+                user_site_settings.header_background_color = header_background_color
+                user_site_settings.sidebar_background_color = sidebar_background_color
+                user_site_settings.main_background_color = main_background_color
+                user_site_settings.icons_color = icons_color
+                user_site_settings.background_image = background_image
+                user_site_settings.save()
+
+        return render(request, 'site_module/customize_site_appearance.html',
+                      {'site_settings_form': change_appearance_form})
 
 
 class SiteSettingsView(LoginRequiredMixin, TemplateView):

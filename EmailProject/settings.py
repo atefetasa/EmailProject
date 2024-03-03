@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'home_module',
     'site_module',
     'django_render_partial',
-    'rest_framework'
+    'rest_framework',
+    'sorl.thumbnail'
 ]
 
 MIDDLEWARE = [
@@ -142,7 +143,7 @@ STATICFILES_DIRS = [
 
 # the files which attached to the emails would be stored in 'uploads' folder
 MEDIA_ROOT = BASE_DIR / 'uploads'
-MEDIA_URL = '/medias/'
+MEDIA_URL = '/uploads/'
 
 
 # Default primary key field type

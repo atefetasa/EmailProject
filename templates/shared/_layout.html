@@ -18,7 +18,7 @@
         {% render_partial 'home_module.views.site_header_partial' %}
         <div class="row">
             {% render_partial 'home_module.views.site_sidebar_partial' %}
-            <div id="main_background" class="col-md-10 order-1 d-flex flex-column justify-content-between" style="height: 124vh; background-color: {% if user.is_authenticated %}{% get_main_background_color user.id %}{% else %}white{% endif %}; background-image: {% if user.is_authenticated %}url({% get_main_background_image_url user.id %});{% else %}none{% endif %};">
+            <div id="main_background" class="col-md-10 order-1 d-flex flex-column justify-content-between" style="height: 140vh; background-color: {% if user.is_authenticated %}{% get_main_background_color user.id %}{% else %}white{% endif %}; background-image: {% if user.is_authenticated %}url({% get_main_background_image_url user.id %});{% else %}none{% endif %};">
                 {% block content %}
 
                 {% endblock %}

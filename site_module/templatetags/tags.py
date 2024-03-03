@@ -17,8 +17,11 @@ def get_main_background_color(uid):
 def get_main_background_image_url(uid):
     site_settings = SiteSettings.objects.filter(user_id__exact=uid).first()
     if site_settings and site_settings.background_image:
-        image_path = site_settings.background_image.image.url
-        return f"/uploads{image_path}"
+        if site_settings.background_image.image:
+            image_path = site_settings.background_image.image.url
+            return image_path
+        else:
+            return None
 
     return None
 
