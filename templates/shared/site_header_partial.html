@@ -1,11 +1,14 @@
 {% load static %}
+{% load thumbnail %}
 
 <div class="row d-flex flex-row" id="site_header" style="height: 18vh; background-color: {{ header_background_color }}">
     <div class="col-md-3 d-flex flex-row {% if user.is_authenticated %} justify-content-around align-items-start {% else %} justify-content-start align-items-center{% endif %}">
         {% if user.is_authenticated %}
             <div class="d-flex flex-column align-items-center">
                 {% if user.profile_photo %}
-                    <img alt="user_profile_photo" class="img-fluid" src="{{ user.profile_photo.url }}">
+                    {% thumbnail user.profile_photo "64x64" crop='center' quality=100 as im %}
+                        <img alt="user_profile_photo" class="img-fluid" src="{{ im.url }}">
+                    {% endthumbnail %}
                 {% else %}
                     {% if user.gender %}
                         {% if user.gender == 'male' %}

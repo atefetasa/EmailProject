@@ -4,6 +4,10 @@ from .managers import CustomUserManager
 import pyotp
 
 
+def user_profile_path(instance, photo_name):
+    return 'profile_photos/user_{0}/{1}'.format(instance.username, photo_name)
+
+
 class User(AbstractUser, PermissionsMixin):
     email = models.EmailField(
         max_length=300,
@@ -18,7 +22,7 @@ class User(AbstractUser, PermissionsMixin):
     gender = models.CharField(max_length=6, null=True, blank=True)
     phone_number = models.CharField(max_length=11, null=True, blank=True, unique=True, db_index=True,
                                     verbose_name='phone number')
-    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True, verbose_name='profile photo')
+    profile_photo = models.ImageField(upload_to=user_profile_path, null=True, blank=True, verbose_name='profile photo')
 
     REQUIRED_FIELDS = ['email', 'phone_number']
 

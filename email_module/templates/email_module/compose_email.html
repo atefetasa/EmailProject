@@ -1,15 +1,336 @@
 {% extends 'shared/_layout.html' %}
 {% load static %}
+{#{% load ckeditor %}#}
 
 {% block title %}Compose Mail Page{% endblock %}
 
 {% block extra_header_refrences %}
+    <link rel="icon" type="image/png" href="{% static 'email_module/images/icons/icons8-composing-mail-50.png' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'email_module/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/animate/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/css-hamburgers/hamburgers.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/select2/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'email_module/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor.css' %}">
 {% endblock %}
 
 {% block content %}
+    <div class="row justify-content-between">
+        <div class="d-flex flex-column p-5" style="width: 50%;">
+            <form id="compose_email_form" method="post" action="{% url 'compose_mail_page' %}">
+                {% csrf_token %}
+                <div class="wrap-input1 validate-input">
+                    {{ form.title }}
+                    <span class="shadow-input1"></span>
+                    {% for error in form.title.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
 
+                <div class="wrap-input1 validate-input">
+                    {{ form.text.label_tag|capfirst }}
+                    {{ form.text }}
+                    <span class="shadow-input1"></span>
+                    {% for error in form.text.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="d-flex flex-row">
+                    <div class="wrap-input1 validate-input">
+                        <input id="direct_receiver" class="input1" type="text" name="direct_receiver" placeholder="to">
+                        <span class="shadow-input1"></span>
+                        {% for error in form.to.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <section class="ml-4">
+                        <i id="add_direct_receiver" class="fa fa-plus mt-3" style="font-size: 36px; cursor: pointer;"></i>
+                    </section>
+                    <div>
+                        {{ form.to }}
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row">
+                    <div class="wrap-input1 validate-input">
+                        <input id="cc_receiver" class="input1" type="text" name="cc_receiver" placeholder="cc">
+                        <span class="shadow-input1"></span>
+                        {% for error in form.cc.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <section class="ml-4">
+                        <i id="add_cc_receiver" class="fa fa-plus mt-3" style="font-size: 36px; cursor: pointer;"></i>
+                    </section>
+                    <div>
+                        {{ form.cc }}
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row">
+                    <div class="wrap-input1 validate-input">
+                        <input id="bcc_receiver" class="input1" type="text" name="bcc_receiver" placeholder="Bcc">
+                        <span class="shadow-input1"></span>
+                        {% for error in form.bcc.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <section class="ml-4">
+                        <i id="add_bcc_receiver" class="fa fa-plus mt-3" style="font-size: 36px; cursor: pointer;"></i>
+                    </section>
+                    <div>
+                        {{ form.bcc }}
+                    </div>
+                </div>
+
+                <div class="wrap-input1 validate-input" style="font-family:  Montserrat-Bold; font-size: 12px;">
+                    <br>
+                    <p><b>the maximum file size is 25 megabytes</b></p>
+                    {{ form.attachment }}
+                    <span class="shadow-input1"></span>
+                    {% for error in form.attachment.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="wrap-input1 validate-input" style="font-family:  Montserrat-Bold; font-size: 12px;">
+                    <b style="font-size: 20px;">{{ form.labels.label_tag|capfirst }}</b>
+                    {% if form.labels.field.choices %}
+                        {{ form.labels }}
+                        {% else %}
+                        <p>There is no label to show</p>
+                        <p>you can add labels by clicking the plus button</p>
+                    {% endif %}
+                    {% for error in form.labels.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="wrap-input1 validate-input" style="font-family:  Montserrat-Bold; font-size: 12px;">
+                    <b style="font-size: 20px;">{{ form.signature.label_tag|capfirst }}</b>
+                    {{ form.signature }}
+                    {% for error in form.signature.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                {{ form.is_draft }}
+
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="container-contact1-form-btn">
+                        <button class="contact1-form-btn" onclick="submitForm(false)">
+                            <span>
+                                Send Email
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="container-contact1-form-btn">
+                        <button class="contact1-form-btn" onclick="submitForm(true)">
+                            <span>
+                                Save as Draft
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="input_div mt-5 p-5 d-flex flex-column justify-content-end">
+            <section class="d-flex flex-column justify-content-around">
+                <p style="font-size: 20px;"><b>to:</b></p>
+                <div class="row justify-content-around" id="little_to_boxes_container">
+
+                </div>
+            </section>
+            <hr>
+            <section class="d-flex flex-column justify-content-around">
+                <p style="font-size: 20px;"><b>cc:</b></p>
+                <div class="row justify-content-around" id="little_cc_boxes_container">
+
+                </div>
+            </section>
+            <hr>
+            <section class="d-flex flex-column justify-content-around">
+                <p style="font-size: 20px;"><b>bcc:</b></p>
+                <div class="row justify-content-around" id="little_bcc_boxes_container">
+
+                </div>
+            </section>
+        </div>
+    </div>
 {% endblock %}
 
 {% block extra_footer_refrences %}
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'email_module/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.min.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/config.js' %}"></script>
+	<script src="{% static 'email_module/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'email_module/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'email_module/vendor/select2/select2.min.js' %}"></script>
+	<script src="{% static 'email_module/vendor/tilt/tilt.jquery.min.js' %}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+
+        CKEDITOR.replace('editor');
+
+        function submitForm(draftStatus){
+            $("#draft").val(draftStatus);
+            document.getElementById('compose_email_form').submit();
+        }
+
+        function add_to_item(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            var userName = $('#direct_receiver').val();
+            if (userName != null && userName != ''){
+                var direct_receivers_value = $('#direct_receivers').val()
+                var separatedValues = direct_receivers_value.split(",");
+                if (separatedValues.includes(userName)){
+                    $('#direct_receiver').val('');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: 'This user is already selected',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else{
+                    var directReceiversNewValue = direct_receivers_value + userName + ",";
+                    $('#direct_receivers').val(directReceiversNewValue);
+                    var mainDiv = document.getElementById("little_to_boxes_container");
+                    var newBox = document.createElement("div");
+                    newBox.classList.add("little_boxes", "d-flex", "flex-row", "justify-content-center", "align-items-center", "pl-3", "mb-3");
+                    mainDiv.appendChild(newBox);
+                    var section1 = document.createElement("section");
+                    section1.classList.add("pb-1");
+                    var usernameNode = document.createTextNode(userName);
+                    section1.appendChild(usernameNode);
+                    newBox.appendChild(section1);
+                    var section2 = document.createElement("section");
+                    section2.classList.add("pr-2");
+                    var iTag = document.createElement("i");
+                    iTag.id = "delete_to_item";
+                    iTag.classList.add("fa", "fa-close");
+                    iTag.style.fontSize = "25px";
+                    iTag.style.color = "red";
+                    iTag.style.cursor = "pointer";
+                    section2.appendChild(iTag);
+                    newBox.appendChild(section2);
+                    $('#direct_receiver').val('');
+                }
+            }
+        }
+
+        function add_cc_item(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            var userName = $('#cc_receiver').val();
+            if (userName != null && userName != ''){
+                var cc_receivers_value = $('#cc_receivers').val()
+                var separatedValues = cc_receivers_value.split(",");
+                if (separatedValues.includes(userName)){
+                    $('#cc_receiver').val('');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: 'This user is already selected',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else{
+                    var ccReceiversNewValue = cc_receivers_value + userName + ",";
+                    $('#cc_receivers').val(ccReceiversNewValue);
+                    var mainDiv = document.getElementById("little_cc_boxes_container");
+                    var newBox = document.createElement("div");
+                    newBox.classList.add("little_boxes", "d-flex", "flex-row", "justify-content-center", "align-items-center", "pl-3", "mb-3");
+                    mainDiv.appendChild(newBox);
+                    var section1 = document.createElement("section");
+                    section1.classList.add("pb-1");
+                    var usernameNode = document.createTextNode(userName);
+                    section1.appendChild(usernameNode);
+                    newBox.appendChild(section1);
+                    var section2 = document.createElement("section");
+                    section2.classList.add("pr-2");
+                    var iTag = document.createElement("i");
+                    iTag.id = "delete_cc_item";
+                    iTag.classList.add("fa", "fa-close");
+                    iTag.style.fontSize = "25px";
+                    iTag.style.color = "red";
+                    iTag.style.cursor = "pointer";
+                    section2.appendChild(iTag);
+                    newBox.appendChild(section2);
+                    $('#cc_receiver').val('');
+                }
+            }
+        }
+
+        function add_bcc_item(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            var userName = $('#bcc_receiver').val();
+            if (userName != null && userName != ''){
+                var bcc_receivers_value = $('#bcc_receivers').val()
+                var separatedValues = bcc_receivers_value.split(",");
+                if (separatedValues.includes(userName)){
+                    $('#bcc_receiver').val('');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: 'This user is already selected',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else{
+                    var bccReceiversNewValue = bcc_receivers_value + userName + ",";
+                    $('#bcc_receivers').val(bccReceiversNewValue);
+                    var mainDiv = document.getElementById("little_bcc_boxes_container");
+                    var newBox = document.createElement("div");
+                    newBox.classList.add("little_boxes", "d-flex", "flex-row", "justify-content-center", "align-items-center", "pl-3", "mb-3");
+                    mainDiv.appendChild(newBox);
+                    var section1 = document.createElement("section");
+                    section1.classList.add("pb-1");
+                    var usernameNode = document.createTextNode(userName);
+                    section1.appendChild(usernameNode);
+                    newBox.appendChild(section1);
+                    var section2 = document.createElement("section");
+                    section2.classList.add("pr-2");
+                    var iTag = document.createElement("i");
+                    iTag.id = "delete_bcc_item";
+                    iTag.classList.add("fa", "fa-close");
+                    iTag.style.fontSize = "25px";
+                    iTag.style.color = "red";
+                    iTag.style.cursor = "pointer";
+                    section2.appendChild(iTag);
+                    newBox.appendChild(section2);
+                    $('#bcc_receiver').val('');
+                }
+            }
+        }
+
+        var add_to_icon = document.getElementById("add_direct_receiver")
+        add_to_icon.addEventListener("click", add_to_item)
+
+        var add_cc_icon = document.getElementById("add_cc_receiver")
+        add_cc_icon.addEventListener("click", add_cc_item)
+
+        var add_bcc_icon = document.getElementById("add_bcc_receiver")
+        add_bcc_icon.addEventListener("click", add_bcc_item)
+	</script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-23581568-13');
+    </script>
+
+<!--===============================================================================================-->
+    <script src="{% static 'email_module/js/main.js' %}"></script>
 {% endblock %}

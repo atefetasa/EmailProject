@@ -37,14 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
     'email_module',
     'account_module',
     'home_module',
     'site_module',
+    'polls',
+    'ckeditor',
     'django_render_partial',
     'rest_framework',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'multiupload',
 ]
 
 MIDDLEWARE = [
@@ -74,9 +76,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'builtins': [
-                'site_module.templatetags.tags',
-            ],
+            # 'builtins': [
+            #     'site_module.templatetags.tags',
+            # ],
         },
     },
 ]
@@ -144,6 +146,7 @@ STATICFILES_DIRS = [
 # the files which attached to the emails would be stored in 'uploads' folder
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/uploads/'
+CKEDITOR_UPLOAD_PATH = '/uploads/'
 
 
 # Default primary key field type
@@ -152,17 +155,13 @@ MEDIA_URL = '/uploads/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Rest framework
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ],
-#     'DEFAULT_THROTTLE_CLASSES': [
-#         'rest_framework.throttling.ScopedRateThrottle',
-#     ],
-#     'DEFAULT_THROTTLE_RATES': {
-#         'questions': '5/minute'
-#     }
-# }
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 SESSION_COOKIE_AGE = 604800
 SESSION_SAVE_EVERY_REQUEST = True
@@ -176,7 +175,5 @@ DEFAULT_FROM_EMAIL = 'atenafallahi14@gmail.com'
 EMAIL_HOST_USER = 'atenafallahi14@gmail.com'
 EMAIL_HOST_PASSWORD = 'yybupwjnomznbmbn'
 EMAIL_PORT = 587
-
-
 
 
