@@ -27,17 +27,16 @@ class Email(models.Model):
     attached_file = models.FileField(upload_to=user_attached_files_path, null=True, blank=True,
                                      validators=[validate_file_size])
     sender = models.ForeignKey(User, on_delete=models.SET('deleted_account'), related_name='sent_Emails', null=False)
-    draft = models.BooleanField(default=False)
-    direct_receivers = models.ManyToManyField(User, null=True, blank=True, related_name='direct_emails')
-    cc_receivers = models.ManyToManyField(User, null=True, blank=True, related_name='cc_emails')
-    bcc_receivers = models.ManyToManyField(User, null=True, blank=True, related_name='bcc_emails')
+    draft = models.BooleanField(null=False, blank=False)
+    direct_receivers = models.ManyToManyField(User, related_name='direct_emails')
+    cc_receivers = models.ManyToManyField(User, related_name='cc_emails')
+    bcc_receivers = models.ManyToManyField(User, related_name='bcc_emails')
     replied_email = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL)
-    deleted_by_user = models.ManyToManyField(User, null=True, blank=True, related_name='deleted_emails')
-    labels = models.ManyToManyField(Label, null=True, blank=True, related_name='emails_with_this_label',
-                                    verbose_name='email_labels')
+    deleted_by_user = models.ManyToManyField(User, related_name='deleted_emails')
+    labels = models.ManyToManyField(Label, related_name='emails_with_this_label', verbose_name='email_labels')
     signature = models.ForeignKey(Signature, on_delete=models.SET_NULL, null=True, blank=True)
-    read_by_user = models.ManyToManyField(User, null=True, blank=True, related_name='read_emails')
-    archived_by_user = models.ManyToManyField(User, null=True, blank=True, related_name='archived_emails')
+    read_by_user = models.ManyToManyField(User, related_name='read_emails')
+    archived_by_user = models.ManyToManyField(User, related_name='archived_emails')
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

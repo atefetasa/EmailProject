@@ -9,46 +9,50 @@ class CustomFileField(forms.FileField):
     pass
 
 
-class CreateEmailForm(forms.Form):
+class CreateEmailForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        self.request = kwargs.pop('request', None)
         super(CreateEmailForm, self).__init__(*args, **kwargs)
 
-        if user:
-            self.fields['labels'].queryset = Label.objects.filter(creator=user)
-            self.fields['signature'].queryset = Signature.objects.filter(user=user)
+        if self.request:
+            self.fields['labels'].queryset = Label.objects.filter(creator=self.request.user)
+            self.fields['signature'].queryset = Signature.objects.filter(user=self.request.user)
 
-    title = forms.CharField(
-        required=False,
-        widget=forms.TextInput(attrs={
-            'class': 'input1',
-            'type': 'text',
-            'placeholder': 'Enter email title',
-            'name': 'email_title'
-        }),
-        validators=[
-            validators.MaxLengthValidator(100)
-        ]
-    )
+    class Meta:
+        model = Email
+        fields = ['title', 'text', 'attached_file', 'direct_receivers',
+                  'cc_receivers', 'bcc_receivers', 'labels', 'signature', 'draft']
+        labels = {
+            'text': 'Email Text',
+            'direct_receivers': 'to',
+            'cc_receivers': 'cc',
+            'bcc_receivers': 'bcc',
+            'signature': 'Choose a signature to attach to the email',
+            'labels': 'Choose a label'
+        }
 
-    text = forms.CharField(
-        required=False,
-        widget=forms.Textarea(attrs={
-            'class': 'email_body',
-            'id': 'editor',
-            'type': 'text',
-            'placeholder': 'Type email Text',
-            'name': 'editor'
-        }),
-        label='Email text'
-    )
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'input1',
+                'type': 'text',
+                'placeholder': 'Enter email title',
+                'name': 'email_title'
+            }),
+            'text': forms.Textarea(attrs={
+                'class': 'email_body',
+                'id': 'id_text',
+                'type': 'text',
+                'placeholder': 'Type email Text',
+                'name': 'editor'
+            }),
+            'attached_file': forms.ClearableFileInput,
+            'draft': forms.HiddenInput(attrs={
+                'id': "draft"
+            })
 
-    attachment = forms.FileField(
-        required=False,
-        widget=forms.ClearableFileInput,
-    )
+        }
 
-    to = forms.CharField(
+    direct_receivers = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
             'type': 'hidden',
@@ -56,7 +60,7 @@ class CreateEmailForm(forms.Form):
         })
     )
 
-    cc = forms.CharField(
+    cc_receivers = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
             'type': 'hidden',
@@ -64,7 +68,7 @@ class CreateEmailForm(forms.Form):
         })
     )
 
-    bcc = forms.CharField(
+    bcc_receivers = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
             'type': 'hidden',
@@ -73,34 +77,23 @@ class CreateEmailForm(forms.Form):
     )
 
     labels = forms.ModelMultipleChoiceField(
-        queryset=Label.objects.none(),
+        queryset=None,
         required=False,
         widget=forms.CheckboxSelectMultiple,
-        label='Choose a label',
     )
 
     signature = forms.ModelChoiceField(
-        queryset=Signature.objects.none(),
+        queryset=None,
         required=False,
         widget=forms.RadioSelect,
         blank=True,
-        label='Choose a signature to attach to the email',
         empty_label='No signature'
     )
 
-    is_draft = forms.BooleanField(
-        required=True,
-        widget=forms.HiddenInput(attrs={
-            'id': "draft"
-        })
-    )
-
-    def clean_attachment(self):
-        file = self.cleaned_data.get("attachment")
+    def clean_attached_file(self):
+        file = self.cleaned_data.get("attached_file")
         if file:
             if file.size > 25 * 1024 * 1024:
                 raise forms.ValidationError("file size must be at most 25 Megabytes")
 
         return file
-
-

@@ -42,7 +42,7 @@
                     <div class="wrap-input1 validate-input">
                         <input id="direct_receiver" class="input1" type="text" name="direct_receiver" placeholder="to">
                         <span class="shadow-input1"></span>
-                        {% for error in form.to.errors %}
+                        {% for error in form.direct_receivers.errors %}
                             <p style="color: red">{{ error }}</p>
                         {% endfor %}
                     </div>
@@ -50,7 +50,7 @@
                         <i id="add_direct_receiver" class="fa fa-plus mt-3" style="font-size: 36px; cursor: pointer;"></i>
                     </section>
                     <div>
-                        {{ form.to }}
+                        {{ form.direct_receivers }}
                     </div>
                 </div>
 
@@ -58,7 +58,7 @@
                     <div class="wrap-input1 validate-input">
                         <input id="cc_receiver" class="input1" type="text" name="cc_receiver" placeholder="cc">
                         <span class="shadow-input1"></span>
-                        {% for error in form.cc.errors %}
+                        {% for error in form.cc_receivers.errors %}
                             <p style="color: red">{{ error }}</p>
                         {% endfor %}
                     </div>
@@ -66,7 +66,7 @@
                         <i id="add_cc_receiver" class="fa fa-plus mt-3" style="font-size: 36px; cursor: pointer;"></i>
                     </section>
                     <div>
-                        {{ form.cc }}
+                        {{ form.cc_receivers }}
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@
                     <div class="wrap-input1 validate-input">
                         <input id="bcc_receiver" class="input1" type="text" name="bcc_receiver" placeholder="Bcc">
                         <span class="shadow-input1"></span>
-                        {% for error in form.bcc.errors %}
+                        {% for error in form.bcc_receivers.errors %}
                             <p style="color: red">{{ error }}</p>
                         {% endfor %}
                     </div>
@@ -82,16 +82,16 @@
                         <i id="add_bcc_receiver" class="fa fa-plus mt-3" style="font-size: 36px; cursor: pointer;"></i>
                     </section>
                     <div>
-                        {{ form.bcc }}
+                        {{ form.bcc_receivers }}
                     </div>
                 </div>
 
                 <div class="wrap-input1 validate-input" style="font-family:  Montserrat-Bold; font-size: 12px;">
                     <br>
                     <p><b>the maximum file size is 25 megabytes</b></p>
-                    {{ form.attachment }}
+                    {{ form.attached_file }}
                     <span class="shadow-input1"></span>
-                    {% for error in form.attachment.errors %}
+                    {% for error in form.attached_file.errors %}
                         <p style="color: red">{{ error }}</p>
                     {% endfor %}
                 </div>
@@ -117,7 +117,7 @@
                     {% endfor %}
                 </div>
 
-                {{ form.is_draft }}
+                {{ form.draft }}
 
                 <div class="d-flex flex-row justify-content-around">
                     <div class="container-contact1-form-btn">
@@ -178,10 +178,10 @@
 			scale: 1.1
 		})
 
-        CKEDITOR.replace('editor');
+        CKEDITOR.replace('id_text');
 
         function submitForm(draftStatus){
-            $("#draft").val(draftStatus);
+            $("#draft").val(draftStatus ? 'True': 'False');
             document.getElementById('compose_email_form').submit();
         }
 
