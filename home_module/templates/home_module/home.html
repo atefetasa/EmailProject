@@ -3,6 +3,44 @@
 
 {% block title %}home page{% endblock %}
 
+{% block extra_header_refrences %}
+    <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
+{% endblock %}
+
 {% block content %}
 
+{% endblock %}
+
+{% block extra_footer_refrences %}
+    <script src="{% static 'js/sweetalert2.min.js' %}"></script>
+    <script>
+        function removeQueryParam(paramName){
+            const urlWithoutParam = window.location.pathname + window.location.search.replace(new RegExp('([&?])'+paramName+'=\\w*'), '');
+            history.replaceState({},'', urlWithoutParam);
+        }
+        
+        const urlParams = new URLSearchParams(window.location.search);
+            const successParam = urlParams.get('success')
+            if (successParam != null){
+                if (successParam == 'sent'){
+                    Swal.fire({
+                      position: "top-end",
+                      icon: "success",
+                      title: "your email has been sent successfully",
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+                    removeQueryParam('success');
+                }else if (successParam == 'draft'){
+                    Swal.fire({
+                      position: "top-end",
+                      icon: "success",
+                      title: "the email has been saved as draft",
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+                    removeQueryParam('success');
+                }
+            }
+    </script>
 {% endblock %}
