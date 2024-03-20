@@ -153,4 +153,3 @@ class CreateEmailForm(forms.ModelForm):
 
         return cleaned_data
 
-

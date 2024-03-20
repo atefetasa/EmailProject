@@ -32,6 +32,7 @@ class SiteSettingsForm(forms.Form):
                                     widget=forms.RadioSelect)
     background_image = CustomChoiceField(queryset=BackgroundImage.objects.all(),
                                          widget=forms.RadioSelect,
-                                         empty_label=None,
-                                         blank=False,
+                                         blank=True,
+                                         required=False,
+                                         empty_label="No background image",
                                          )

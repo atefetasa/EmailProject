@@ -1,6 +1,18 @@
 from django.db import models
 from account_module.models import User
 
+# first you should add background images and background colors to the database
+# you should log in as superuser
+# background images and background colors icons that I had added to the database are in the uploads folder in the root directory
+# you can add background images in the predefined background images table in database.
+# the values you can use as color_name attribute in BackgroundColor table are:
+#ffccee
+#ffcccc
+#ddccff
+#ccd9ff
+#ffff80
+#99ff99
+
 
 class BackgroundColor(models.Model):
     color_name = models.CharField(max_length=7, null=False, blank=False, unique=True)
