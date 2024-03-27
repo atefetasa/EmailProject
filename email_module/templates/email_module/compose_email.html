@@ -185,6 +185,34 @@
             document.getElementById('compose_email_form').submit();
         }
 
+        function remove_item(id, receivers_type){
+            let splitted_id = id.split("_");
+            let receiverUserName = splitted_id[1];
+            if (receivers_type === "direct_receiver") {
+                var receivers_value = $('#direct_receivers').val();
+            }else if (receivers_type === "cc_receiver"){
+                var receivers_value = $('#cc_receivers').val();
+            }else if (receivers_type === "bcc_receiver"){
+                var receivers_value = $('#bcc_receivers').val();
+            }
+            var separatedValues = receivers_value.split(",");
+            if (separatedValues.includes(receiverUserName)){
+                let indexToDelete = separatedValues.indexOf(receiverUserName);
+                separatedValues.splice(indexToDelete, 1);
+                var updatedReceiversValues = separatedValues.join(",");
+                if (receivers_type === "direct_receiver"){
+                    $('#direct_receivers').val(updatedReceiversValues);
+                }else if (receivers_type === "cc_receiver"){
+                    $('#cc_receivers').val(updatedReceiversValues);
+                }else if (receivers_type === "bcc_receiver"){
+                    $('#bcc_receivers').val(updatedReceiversValues);
+                }
+                let box_id = receiverUserName + "_box";
+                var box = document.getElementById(box_id);
+                box.remove();
+            }
+        }
+
         function add_to_item(event) {
             event.preventDefault(); // Prevent default form submission behavior
             var userName = $('#direct_receiver').val();
@@ -206,6 +234,7 @@
                     var mainDiv = document.getElementById("little_to_boxes_container");
                     var newBox = document.createElement("div");
                     newBox.classList.add("little_boxes", "d-flex", "flex-row", "justify-content-center", "align-items-center", "pl-3", "mb-3");
+                    newBox.id = userName + "_box";
                     mainDiv.appendChild(newBox);
                     var section1 = document.createElement("section");
                     section1.classList.add("pb-1");
@@ -215,11 +244,12 @@
                     var section2 = document.createElement("section");
                     section2.classList.add("pr-2");
                     var iTag = document.createElement("i");
-                    iTag.id = "delete_to_item";
+                    iTag.id = "delete_" + userName;
                     iTag.classList.add("fa", "fa-close");
                     iTag.style.fontSize = "25px";
                     iTag.style.color = "red";
                     iTag.style.cursor = "pointer";
+                    iTag.setAttribute("onclick", "remove_item('" +iTag.id+ "', 'direct_receiver')");
                     section2.appendChild(iTag);
                     newBox.appendChild(section2);
                     $('#direct_receiver').val('');
@@ -248,6 +278,7 @@
                     var mainDiv = document.getElementById("little_cc_boxes_container");
                     var newBox = document.createElement("div");
                     newBox.classList.add("little_boxes", "d-flex", "flex-row", "justify-content-center", "align-items-center", "pl-3", "mb-3");
+                    newBox.id = userName + "_box";
                     mainDiv.appendChild(newBox);
                     var section1 = document.createElement("section");
                     section1.classList.add("pb-1");
@@ -257,11 +288,12 @@
                     var section2 = document.createElement("section");
                     section2.classList.add("pr-2");
                     var iTag = document.createElement("i");
-                    iTag.id = "delete_cc_item";
+                    iTag.id = "delete_" + userName;
                     iTag.classList.add("fa", "fa-close");
                     iTag.style.fontSize = "25px";
                     iTag.style.color = "red";
                     iTag.style.cursor = "pointer";
+                    iTag.setAttribute("onclick", "remove_item('" +iTag.id+ "', 'cc_receiver')");
                     section2.appendChild(iTag);
                     newBox.appendChild(section2);
                     $('#cc_receiver').val('');
@@ -290,6 +322,7 @@
                     var mainDiv = document.getElementById("little_bcc_boxes_container");
                     var newBox = document.createElement("div");
                     newBox.classList.add("little_boxes", "d-flex", "flex-row", "justify-content-center", "align-items-center", "pl-3", "mb-3");
+                    newBox.id = userName + "_box";
                     mainDiv.appendChild(newBox);
                     var section1 = document.createElement("section");
                     section1.classList.add("pb-1");
@@ -299,11 +332,12 @@
                     var section2 = document.createElement("section");
                     section2.classList.add("pr-2");
                     var iTag = document.createElement("i");
-                    iTag.id = "delete_bcc_item";
+                    iTag.id = "delete_" + userName;
                     iTag.classList.add("fa", "fa-close");
                     iTag.style.fontSize = "25px";
                     iTag.style.color = "red";
                     iTag.style.cursor = "pointer";
+                    iTag.setAttribute("onclick", "remove_item('" +iTag.id+ "', 'bcc_receiver')");
                     section2.appendChild(iTag);
                     newBox.appendChild(section2);
                     $('#bcc_receiver').val('');
