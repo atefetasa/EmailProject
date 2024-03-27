@@ -213,18 +213,43 @@
             }
         }
 
+
         function add_to_item(event) {
             event.preventDefault(); // Prevent default form submission behavior
             var userName = $('#direct_receiver').val();
             if (userName != null && userName != ''){
+                let entered_cc_receivers = $('#cc_receivers').val();
+                let entered_bcc_receivers = $('#bcc_receivers').val();
+                let entered_cc_receivers_array = entered_cc_receivers.split(",");
+                let entered_bcc_receivers_array = entered_bcc_receivers.split(",");
                 var direct_receivers_value = $('#direct_receivers').val()
                 var separatedValues = direct_receivers_value.split(",");
-                if (separatedValues.includes(userName)){
+                if (separatedValues.includes(userName)) {
                     $('#direct_receiver').val('');
                     Swal.fire({
                         icon: 'warning',
                         title: 'User Already Selected',
                         text: 'This user is already selected',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else if (entered_cc_receivers_array.includes(userName)){
+                    $('#direct_receiver').val('');
+                    var message = userName + " is in cc receivers list. each user only can be in one classification."
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else if (entered_bcc_receivers_array.includes(userName)){
+                    $('#direct_receiver').val('');
+                    var message = userName + " is in bcc receivers list. each user only can be in one classification."
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: message,
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK'
                     });
@@ -261,14 +286,38 @@
             event.preventDefault(); // Prevent default form submission behavior
             var userName = $('#cc_receiver').val();
             if (userName != null && userName != ''){
+                let entered_direct_receivers = $('#direct_receivers').val();
+                let entered_bcc_receivers = $('#bcc_receivers').val();
+                let entered_direct_receivers_array = entered_direct_receivers.split(",");
+                let entered_bcc_receivers_array = entered_bcc_receivers.split(",");
                 var cc_receivers_value = $('#cc_receivers').val()
                 var separatedValues = cc_receivers_value.split(",");
-                if (separatedValues.includes(userName)){
+                if (separatedValues.includes(userName)) {
                     $('#cc_receiver').val('');
                     Swal.fire({
                         icon: 'warning',
                         title: 'User Already Selected',
                         text: 'This user is already selected',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else if (entered_direct_receivers_array.includes(userName)){
+                    $('#cc_receiver').val('');
+                    var message = userName + " is in to list. each user only can be in one classification."
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else if (entered_bcc_receivers_array.includes(userName)){
+                    $('#cc_receiver').val('');
+                    var message = userName + " is in bcc receivers list. each user only can be in one classification."
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: message,
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK'
                     });
@@ -305,14 +354,38 @@
             event.preventDefault(); // Prevent default form submission behavior
             var userName = $('#bcc_receiver').val();
             if (userName != null && userName != ''){
+                let entered_direct_receivers = $('#direct_receivers').val();
+                let entered_cc_receivers = $('#cc_receivers').val();
+                let entered_direct_receivers_array = entered_direct_receivers.split(",");
+                let entered_cc_receivers_array = entered_cc_receivers.split(",");
                 var bcc_receivers_value = $('#bcc_receivers').val()
                 var separatedValues = bcc_receivers_value.split(",");
-                if (separatedValues.includes(userName)){
+                if (separatedValues.includes(userName)) {
                     $('#bcc_receiver').val('');
                     Swal.fire({
                         icon: 'warning',
                         title: 'User Already Selected',
                         text: 'This user is already selected',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else if (entered_direct_receivers_array.includes(userName)){
+                    $('#bcc_receiver').val('');
+                    var message = userName + " is in to list. each user only can be in one classification."
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }else if (entered_cc_receivers_array.includes(userName)){
+                    $('#bcc_receiver').val('');
+                    var message = userName + " is in cc receivers list. each user only can be in one classification."
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'User Already Selected',
+                        text: message,
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK'
                     });
