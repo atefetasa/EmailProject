@@ -6,16 +6,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # first you should add background images and background colors to the database
 # you should log in as superuser
+# as you can see in models.py each background image and background color record has an image and color_image field in database.
+# and they are used to show the options icons in the user interface.
 # you can add background images in the predefined background images table in database.
-# background images and background colors icons that I had added to the database are in the uploads folder in the root directory
-# the values you can use as color_name attribute in BackgroundColor table are:
-#ffccee
-#ffcccc
-#ddccff
-#ccd9ff
-#ffff80
-#99ff99
-# white
+# background images and background colors icons which I had added to the database are in the uploads folder in the root directory
+# I have indicated the color_name nad the corresponding color_image attributes which you can use for Background Color table bellow:
+#ffccee --> pink_purple.png
+#ffcccc --> light_red.png
+#ddccff --> light_purple.png
+#ccd9ff --> light_ocean_blue.png
+#ffff80 --> light_lime.png
+#99ff99 --> light_green.png
+#ccf5ff --> light_sky_blue.png
+# white --> white.png
 
 
 class SiteAppearanceView(LoginRequiredMixin, View):

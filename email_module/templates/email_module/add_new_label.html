@@ -1,0 +1,68 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}Add Label Page{% endblock %}
+
+{% block extra_header_refrences %}
+    <link rel="stylesheet" type="text/css" href="{% static 'email_module/css/add_new_label/add_new_label_main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'email_module/css/add_new_label/add_new_label_util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{%  static 'email_module/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/fonts/iconic/css/material-design-iconic-font.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/animate/add_new_label_animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/css-hamburgers/hamburgers.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/animsition/css/animsition.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/select2/select2.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'email_module/vendor/daterangepicker/daterangepicker.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="limiter">
+        <div class="d-flex flex-row justify-content-center align-items-center" style="height: 90vh;">
+           <div class="wrap-login100" style="border: 1px solid black;">
+                <form class="login100-form validate-form" method="post" action="{% url 'add_new_label_page' %}">
+                    {% csrf_token %}
+                    <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+                        {{ create_label_form.label_name }}
+                        <span class="focus-input100" data-placeholder="label name"></span>
+                    </div>
+                    {% if create_label_form.label_name.errors %}
+                        <div id="errors_div">
+                            {% for error in create_label_form.label_name.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Save new label
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+{% endblock %}
+
+{% block extra_footer_refrences %}
+	<script src="{% static 'email_module/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'email_module/vendor/animsition/js/animsition.min.js' %}"></script>
+	<script src="{% static 'email_module/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'email_module/vendor/select2/select2.min.js' %}"></script>
+	<script src="{% static 'email_module/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'email_module/vendor/daterangepicker/daterangepicker.js' %}"></script>
+	<script src="{% static 'email_module/vendor/countdowntime/countdowntime.js' %}"></script>
+	<script src="{% static 'email_module/js/add_new_label_main.js' %}"></script>
+
+    <script>
+        if($("#errors_div").length){
+            $("#label_name_input").val('');
+        }
+    </script>
+{% endblock %}

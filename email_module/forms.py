@@ -153,3 +153,18 @@ class CreateEmailForm(forms.ModelForm):
 
         return cleaned_data
 
+
+class CreateLabelForm(forms.ModelForm):
+    class Meta:
+        model = Label
+        fields = ['label_name']
+        widgets = {
+            'label_name': forms.TextInput(attrs={
+                'class': "input100",
+                'type': "text",
+                'id': "label_name_input",
+                'name': "label_name"
+            })
+        }
+
+

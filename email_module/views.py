@@ -1,5 +1,6 @@
 from .models import *
-from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
@@ -101,3 +102,25 @@ class CreateMailView(LoginRequiredMixin, CreateView):
                 return HttpResponseRedirect(reverse_lazy('home_page') + '?success=sent')
 
         return self.form_invalid(form=form)
+
+
+class AddNewLabelView(LoginRequiredMixin, View):
+    def get(self, request):
+        create_label_form = CreateLabelForm()
+        context = {'create_label_form': create_label_form}
+        return render(request, 'email_module/add_new_label.html', context)
+
+    def post(self, request):
+        create_label_form = CreateLabelForm(request.POST)
+        if create_label_form.is_valid():
+            label_name = create_label_form.cleaned_data.get('label_name')
+            same_labels = Label.objects.filter(creator=request.user, label_name__iexact=label_name)
+            if same_labels:
+                create_label_form.add_error('label_name', f'the "{label_name}" label already exists. choose another name for new label.')
+            else:
+                create_label_form.instance.creator = request.user
+                create_label_form.save()
+                return redirect(reverse("compose_mail_page"))
+
+        return render(request, 'email_module/add_new_label.html', {'create_label_form': create_label_form})
+

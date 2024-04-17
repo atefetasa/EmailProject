@@ -1,6 +1,5 @@
 {% extends 'shared/_layout.html' %}
 {% load static %}
-{#{% load ckeditor %}#}
 
 {% block title %}Compose Mail Page{% endblock %}
 
@@ -99,10 +98,24 @@
                 <div class="wrap-input1 validate-input" style="font-family:  Montserrat-Bold; font-size: 12px;">
                     <b style="font-size: 20px;">{{ form.labels.label_tag|capfirst }}</b>
                     {% if form.labels.field.choices %}
-                        {{ form.labels }}
+                        <div class="d-flex flex-row justify-content-start">
+                            <div class="d-flex flex-column mr-5">
+                                {{ form.labels }}
+                            </div>
+                            <div id="add_new_label_div" class="d-flex flex-row justify-content-around">
+                                <a class="pull-left" id="add_new_label" href="{% url 'add_new_label_page' %}">
+                                    <i class="fa fa-plus mt-3 ml-3" style="font-size: 36px; cursor: pointer;"></i>
+                                </a>
+                            </div>
+                        </div>
                         {% else %}
                         <p>There is no label to show</p>
                         <p>you can add labels by clicking the plus button</p>
+                        <div id="add_new_label_div" class="d-flex flex-row justify-content-around">
+                            <a class="pull-left" id="add_new_label" href="{% url 'add_new_label_page' %}">
+                                <i class="fa fa-plus mt-3" style="font-size: 36px; cursor: pointer;"></i>
+                            </a>
+                        </div>
                     {% endif %}
                     {% for error in form.labels.errors %}
                         <p style="color: red">{{ error }}</p>
@@ -418,6 +431,14 @@
             }
         }
 
+        $("#add_new_label").hover(
+            function(){
+                $("#add_new_label_div").append($("<div id='hover_div' style='background-color: #e0e0d1; height: 20px; width: 80px; border-radius: 4px;'>add new label</div>"));
+            },
+            function (){
+                $("#hover_div").remove();
+            }
+        );
         var add_to_icon = document.getElementById("add_direct_receiver")
         add_to_icon.addEventListener("click", add_to_item)
 
