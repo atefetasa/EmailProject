@@ -238,7 +238,7 @@ class ForgetPasswordView(View):
             return render(request, 'account_module/enter_email.html', context)
 
         elif success_count == 0:
-            raise Http404("the password reset emil has been not successfully sent to you. please try again.")
+            raise Http404("the password reset email has been not successfully sent to you. please try again.")
 
 
 class ResetPasswordView(FormView):
