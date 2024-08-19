@@ -171,9 +171,9 @@ SESSION_SAVE_EVERY_REQUEST = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-DEFAULT_FROM_EMAIL = 'atenafallahi14@gmail.com'
-EMAIL_HOST_USER = 'atenafallahi14@gmail.com'
-EMAIL_HOST_PASSWORD = 'yybupwjnomznbmbn'
+DEFAULT_FROM_EMAIL = 'emailprojectsample@gmail.com'
+EMAIL_HOST_USER = 'emailprojectsample@gmail.com'
+EMAIL_HOST_PASSWORD = 'otypjsijfepylhhk'
 EMAIL_PORT = 587
 
 

@@ -30,7 +30,7 @@ def send_otp_code(otp_code, email_address, phone_number):
     message = ""
     if email_address:
         html_message = render_to_string('account_module/activation_email.html', {'otp': otp_code.code})
-        success_count = send_mail(subject='account activation', message='', from_email='atenafallahi14@gmail.com',
+        success_count = send_mail(subject='account activation', message='', from_email='emailprojectsample@gmail.com',
                                   recipient_list=[email_address], html_message=html_message)
         if success_count == 1:
             otp_code.is_used = True
